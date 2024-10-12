@@ -1,0 +1,158 @@
+
+<html><head><base href="https://example.com/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Card</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Cinzel', serif;
+        background: url('https://example.com/fantasy-background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .card {
+        width: 300px;
+        height: 420px;
+        background: linear-gradient(45deg, #8B0000, #FF4500);
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255,215,0,0.5), 0 0 40px rgba(255,0,0,0.3);
+        overflow: visible;
+        position: relative;
+        transition: transform 0.3s ease-in-out;
+        margin-bottom: 20px;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .card-frame {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        border: 4px solid #FFD700;
+        border-radius: 10px;
+        box-shadow: inset 0 0 10px rgba(255,215,0,0.5);
+    }
+    .card-image {
+        width: 90%;
+        height: 50%;
+        margin: 5% auto 0;
+        background-size: cover;
+        background-position: center;
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .card-content {
+        padding: 10px;
+        color: #FFD700;
+        text-align: center;
+    }
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-shadow: 1px 1px 2px #000;
+    }
+    .card-description {
+        font-size: 12px;
+        margin-bottom: 10px;
+        color: #FFF;
+    }
+    .card-stats {
+        display: flex;
+        justify-content: space-around;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .stat {
+        background: rgba(0,0,0,0.5);
+        padding: 5px 10px;
+        border-radius: 15px;
+        border: 2px solid #FFD700;
+    }
+    .tier-badge {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        background: #FFD700;
+        color: #8B0000;
+        padding: 8px 12px;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 16px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        z-index: 10;
+    }
+    input {
+        margin: 5px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 200px;
+    }
+</style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="card-frame"></div>
+        <div class="tier-badge">S</div>
+        <div class="card-image" id="cardImage" style="background-image: url('');"></div>
+        <div class="card-content">
+            <h2 class="card-title" id="cardTitle">Midnight Sorceress</h2>
+            <p class="card-description" id="cardDescription">A captivating spellcaster with mastery over the night, she commands the stars and moon with her enchanted blades.</p>
+            <div class="card-stats">
+                <div class="stat" id="cardAttack">ATK: 110</div>
+                <div class="stat" id="cardDefense">DEF: 85</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Fields for updating the card -->
+    <input type="file" id="imageUpload" accept="image/*">
+    <input type="text" id="titleInput" placeholder="Enter card title">
+    <input type="text" id="descriptionInput" placeholder="Enter card description">
+    <input type="number" id="attackInput" placeholder="Enter attack value">
+    <input type="number" id="defenseInput" placeholder="Enter defense value">
+
+<script>
+    // Image upload
+    document.getElementById('imageUpload').addEventListener('change', function(event) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('cardImage').style.backgroundImage = 'url(' + e.target.result + ')';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    // Update title
+    document.getElementById('titleInput').addEventListener('input', function(event) {
+        document.getElementById('cardTitle').innerText = event.target.value || 'Midnight Sorceress';
+    });
+
+    // Update description
+    document.getElementById('descriptionInput').addEventListener('input', function(event) {
+        document.getElementById('cardDescription').innerText = event.target.value || 'A captivating spellcaster with mastery over the night, she commands the stars and moon with her enchanted blades.';
+    });
+
+    // Update attack stat
+    document.getElementById('attackInput').addEventListener('input', function(event) {
+        document.getElementById('cardAttack').innerText = 'ATK: ' + (event.target.value || 110);
+    });
+
+    // Update defense stat
+    document.getElementById('defenseInput').addEventListener('input', function(event) {
+        document.getElementById('cardDefense').innerText = 'DEF: ' + (event.target.value || 85);
+    });
+</script>
+
+</body></html>
